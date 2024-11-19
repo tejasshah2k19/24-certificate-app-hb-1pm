@@ -39,7 +39,7 @@
 						<td>${evaluation.batchType}</td>
 						<td>${evaluation.subject}</td>
 						<td>${evaluation.faculty}</td>
-						<td>Delete | Edit | View </td>
+						<td> <a href="certificate?studentId=${evaluation.studentId}">Certificate</a> | Delete | Edit | View </td>
 					</tr>
 				</c:forEach>
 			</tbody>

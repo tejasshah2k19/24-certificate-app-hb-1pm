@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.entity.StudentEntity;
 import com.repository.StudentRepository;
@@ -33,9 +34,73 @@ public class StudentController {
 	public String listUsers(Model model) {
 
 		List<StudentEntity> students = studentRepository.findAll();
-		model.addAttribute("students",students);
-		
+		model.addAttribute("students", students);
+
 		return "ListUsers";
+	}
+
+	@GetMapping("/certificate")
+	public String certificate(@RequestParam("studentId") String studentId, Model model) {
+
+		StudentEntity student = studentRepository.findById(studentId).get();
+
+		Double avgPerformance2 = (student.getCommunication() + student.getDiscipline() + student.getRegularity()
+				+ student.getTestPerformance()) / 4.0;
+		avgPerformance2 = avgPerformance2 * 20;
+
+		Integer avgPerformance = avgPerformance2.intValue();
+
+		String grade = "";
+		if (avgPerformance == 100) {
+			grade = "A+";
+		} else if (avgPerformance >= 80) {
+			grade = "A";
+		} else if (avgPerformance >= 60) {
+			grade = "B+";
+		} else if (avgPerformance >= 40) {
+			grade = "B";
+		} else {
+			grade = "C";
+		}
+		System.out.println(avgPerformance);
+
+		model.addAttribute("student", student);
+		model.addAttribute("grade", grade);
+		model.addAttribute("avgPerformance", avgPerformance);
+
+		return "Certificate2";
+	}
+
+	@GetMapping("/certificate1")
+	public String certificateOld(@RequestParam("studentId") String studentId, Model model) {
+
+		StudentEntity student = studentRepository.findById(studentId).get();
+
+		Double avgPerformance2 = (student.getCommunication() + student.getDiscipline() + student.getRegularity()
+				+ student.getTestPerformance()) / 4.0;
+		avgPerformance2 = avgPerformance2 * 20;
+
+		Integer avgPerformance = avgPerformance2.intValue();
+
+		String grade = "";
+		if (avgPerformance == 100) {
+			grade = "A+";
+		} else if (avgPerformance >= 80) {
+			grade = "A";
+		} else if (avgPerformance >= 60) {
+			grade = "B+";
+		} else if (avgPerformance >= 40) {
+			grade = "B";
+		} else {
+			grade = "C";
+		}
+		System.out.println(avgPerformance);
+
+		model.addAttribute("student", student);
+		model.addAttribute("grade", grade);
+		model.addAttribute("avgPerformance", avgPerformance);
+
+		return "Certificate";
 	}
 
 }

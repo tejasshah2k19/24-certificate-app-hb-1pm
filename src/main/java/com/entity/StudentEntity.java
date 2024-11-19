@@ -22,6 +22,7 @@ public class StudentEntity { //data base ==> table :: collection
 	private Integer communication;
 	private Integer discipline;
 	private Integer testPerformance;
+	private String college;
 
 	
  
@@ -122,4 +123,13 @@ public class StudentEntity { //data base ==> table :: collection
 		this.testPerformance = testPerformance;
 	}
 
+	public String getCollege() {
+		return college;
+	}
+
+	public void setCollege(String college) {
+		this.college = college;
+	}
+
+	
 }

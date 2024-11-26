@@ -9,14 +9,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.lang.Double;
+
 import com.entity.StudentEntity;
 import com.repository.StudentRepository;
+import com.service.JasperReportService;
 
 @Controller
 public class StudentController {
 
 	@Autowired
 	StudentRepository studentRepository;
+
+	@Autowired
+	JasperReportService jasperReportService;
 
 	@GetMapping("/newstudent")
 	public String newStudent() {
@@ -101,6 +107,16 @@ public class StudentController {
 		model.addAttribute("avgPerformance", avgPerformance);
 
 		return "Certificate";
+	}
+
+	@GetMapping("exportpdf")
+	public String exportPdf() {
+		try {
+			jasperReportService.exportStudentListPdf("pdf");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "NewStudent";
 	}
 
 }
